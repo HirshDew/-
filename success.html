@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+    <title>登陆成功</title>
+    <script>
+        //获取上传按钮
+        var input1 = document.getElementById("upload");
+        if (typeof FileReader === 'undefined') {
+            //result.innerHTML = "抱歉，你的浏览器不支持 FileReader"; 
+            input1.setAttribute('disabled', 'disabled');
+        } else {
+            input1.addEventListener('change', readFile, false);
+
+        }
+
+        function readFile() {
+            var file = this.files[0]; //获取上传文件列表中第一个文件
+            if (!/image\/\w+/.test(file.type)) {
+                //图片文件的type值为image/png或image/jpg
+                alert("文件必须为图片！");
+                return false;
+            }
+            // console.log(file);
+            var reader = new FileReader(); //实例一个文件对象
+            reader.readAsDataURL(file); //把上传的文件转换成url
+            //当文件读取成功便可以调取上传的接口
+            reader.onload = function(e) {
+
+                var image = new Image();
+                // 设置src属性 
+                image.src = e.target.result;
+                var max = 200;
+                // 绑定load事件处理器，加载完成后执行，避免同步问题
+                image.onload = function() {
+                    // 获取 canvas DOM 对象 
+                    var canvas = document.getElementById("cvs");
+                    // 获取 canvas的 2d 环境对象, 
+                    var ctx = canvas.getContext("2d");
+                    // canvas清屏 
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                    ctx.drawImage(image, 0, 0, 200, 200);
+
+                };
+            }
+        };
+    </script>
+
+</head>
+
+<body>
+    <style type="text/css">
+        body {
+            background: url('2.jpg');
+            width: 1800px;
+            height: 1000px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .header {
+            justify-content: space-between;
+            width: 100%;
+            height: 20%;
+            box-shadow: 2px 3px 5px #ccc;
+        }
+        
+        .header h2 {
+            height: 5%;
+            position: absolute;
+            left: 40px;
+            letter-spacing: 15px;
+            font-size: 40px;
+            color: aqua;
+        }
+        
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .box {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            height: 90%;
+        }
+        
+        .box-left {
+            position: relative;
+            width: 18%;
+            height: 100%;
+            box-shadow: 2px 3px 5px #ccc;
+        }
+        
+        .box-right {
+            width: 80%;
+            height: 100%;
+        }
+        
+        .box-left-f {
+            left: 0;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 98%;
+        }
+        
+        .bl-top-img {
+            height: 120px;
+            width: 120px;
+            margin: 20px auto;
+        }
+        
+        .bl-top-img img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .bl-top-text {
+            text-align: center;
+        }
+        
+        .bl-top-text h3 {
+            font-size: 20px;
+            color: #333;
+            margin: 20px 20px;
+        }
+        
+        .bl-top-text p {
+            font-family: '宋体';
+            font-size: 14px;
+            color: #444;
+        }
+        
+        .box-right {
+            width: 80%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .bl-bottom ul {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .bl-bottom ul li {
+            list-style: none;
+        }
+        
+        .bl-bottom li a {
+            font-size: 40px;
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+
+
+    <body>
+        <div class="header">
+            <h2>
+                个人主页
+            </h2>
+        </div>
+        <div class="box">
+            <div class="box-left">
+                <div class="box-left-f">
+                    <div class="bl-top">
+                        <div class="bl-top-img">
+                            <img src="http://api/profile/#{profile}" alt=" ">
+                        </div>
+                        <div class="bl-top-text ">
+                            <h3>nickname</h3>
+                            <h4>个人简介</h4>
+                        </div>
+                    </div>
+                    <div class="bl-bottom ">
+                        <ul>
+                            <li>
+                                <a href="https://www.qq.com/ " target="_blank "><i class="fa fa-qq " aria-hidden="true "></i></a>
+                            </li>
+                            <li>
+                                <a href="https://weibo.com/ " target="_blank "><i class="fa fa-weibo " aria-hidden="true "></i></a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/ " target="_blank "><i class="fa fa-github " aria-hidden="true "></i></a>
+                            </li>
+                            <li>
+                                <a href="https://stackoverflow.com/ " target="_blank "><i class="fa fa-stack-overflow " aria-hidden="true "></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="box-right ">
+                <table style="text-indent:2em " width=" 100% " height="80% " cellspacing=" 2px " cellpadding="2px ">
+                    <tr>
+                        <td>
+                            <p>
+                                <font color="white " size="3 " face="楷体 ">曲曲折折的荷塘上面，弥望的是田田的叶子。叶子出水很高，像亭亭的舞女的裙。层层的叶子中间，零星地点缀着些白花，有袅娜地开着的，有羞涩地打着朵儿的；正如一粒粒的明珠，又如碧天里的星星，又如刚出浴的美人。微风过处，送来缕缕清香，仿佛远处高楼上渺茫的歌声似的。这时候叶子与花也有一丝的颤动，像闪电般，霎时传过荷塘的那边去了。叶子本是肩并肩密密地挨着，这便宛然有了一道凝碧的波痕。叶子底下是脉脉的流水，遮住了，不能见一些颜色；而叶子却更见风致了。</font>
+                            </p>
+                            <p>
+                                <font color="white " size="3 " face="楷体 ">月光如流水一般，静静地泻在这一片叶子和花上。薄薄的青雾浮起在荷塘里。叶子和花仿佛在牛乳中洗过一样；又像笼着轻纱的梦。虽然是满月，天上却有一层淡淡的云，所以不能朗照；但我以为这恰是到了好处——酣眠固不可少，小睡也别有风味的。月光是隔了树照过来的，高处丛生的灌木，落下参差的斑驳的黑影，峭楞楞如鬼一般；弯弯的杨柳的稀疏的倩影，却又像是画在荷叶上。塘中的月色并不均匀；但光与影有着和谐的旋律，如梵婀玲上奏着的名曲。</font>
+                            </p>
+                            <p>
+                                <font color="white " size="3 " face="楷体 ">荷塘的四面，远远近近，高高低低都是树，而杨柳最多。这些树将一片荷塘重重围住；只在小路一旁，漏着几段空隙，像是特为月光留下的。树色一例是阴阴的，乍看像一团烟雾；但杨柳的丰姿，便在烟雾里也辨得出。树梢上隐隐约约的是一带远山，只有些大意罢了。树缝里也漏着一两点路灯光，没精打采的，是渴睡人的眼。这时候最热闹的，要数树上的蝉声与水里的蛙声；但热闹是它们的，我什么也没有。</font>
+                            </p>
+                            <p>
+                                <font color="white " size="3 " face="楷体 ">节选自《荷塘月色》</font>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </body>
+</body>
+
+</html>
